@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Invoice API Docs</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 2rem; background: #f9f9f9; color: #333; }
+    h1 { color: #0d6efd; }
+    code, pre { background: #eee; padding: 1rem; border-radius: 5px; display: block; white-space: pre-wrap; }
+    a { color: #0d6efd; }
+  </style>
+</head>
+<body>
+  <h1>📄 Invoice API Documentation</h1>
+  <p>This API allows you to generate downloadable PDF invoices via HTTP requests.</p>
+
+  <h2>🔐 Get Your API Key</h2>
+  <p>Visit <a href="/create-checkout-session">this payment link</a> to pay $1 and receive your API key.</p>
+
+  <h2>📤 POST /generate-invoice</h2>
+  <p>Send a JSON payload to create a new invoice.</p>
+  <pre>
+POST https://landing-page-2-fwei.onrender.com/generate-invoice
+Headers:
+  Content-Type: application/json
+  x-api-key: YOUR_API_KEY
+
+Body:
+{
+  "invoice_number": "INV-001",
+  "client_name": "John Doe",
+  "client_email": "john@example.com",
+  "due_date": "2025-07-31",
+  "items": [
+    { "description": "Design", "quantity": 1, "unit_price": 100 },
+    { "description": "Hosting", "quantity": 1, "unit_price": 50 }
+  ]
+}
+  </pre>
+
+  <h2>📥 GET /invoice/&lt;invoice_id&gt;</h2>
+  <p>Download a PDF invoice after generation:</p>
+  <pre>
+GET https://landing-page-2-fwei.onrender.com/invoice/&lt;invoice_id&gt;
+  </pre>
+
+  <hr>
+  <footer>
+    &copy; 2025 Invoice API — Powered by Mohamed Ait Benamara
+  </footer>
+</body>
+</html>
