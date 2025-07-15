@@ -91,9 +91,7 @@
   <h2>💳 Get Access for Just $1</h2>
   <p>Pay once and receive your own private API key to generate invoices instantly.</p>
 
-  <a class="btn" href="https://landing-page-2-fwei.onrender.com/create-checkout-session">
-    Get the API Key
-  </a>
+<a class="btn" onclick="startPayment()">Get the API Key</a>
 
   <h2>⚙️ How It Works</h2>
   <ol>
@@ -130,6 +128,24 @@ curl -X POST https://landing-page-2-fwei.onrender.com/generate-invoice \
   &copy; 2025 Invoice API<br>
   💬 Need help? <a href="mailto:med.aitb01@gmail.com">med.aitb01@gmail.com</a>
 </footer>
+  
+<script>
+function startPayment() {
+  fetch('/create-checkout-session', {
+    method: 'POST'
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.checkout_url) {
+      window.location.href = data.checkout_url;
+    } else {
+      alert("Payment failed: " + data.error);
+    }
+  })
+  .catch(err => alert("Error: " + err.message));
+}
+</script>
 
+  
 </body>
 </html>
