@@ -217,10 +217,6 @@ def cancel():
 def docs():
     return render_template("docs.html")
 
-@app.route('/docs')
-def docs():
-    return render_template("docs.html")
-
 @app.route('/dashboard')
 def dashboard():
     return """
