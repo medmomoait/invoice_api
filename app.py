@@ -174,13 +174,14 @@ def create_checkout_session():
             line_items=[{
                 'price_data': {
                     'currency': 'usd',
-                    'product_data': {'name': 'Invoice API Access'},
+                    'product_data': {'name': 'Invoice API Access',
+                'images': ['https://invoice-api-ztqg.onrender.com/static/favicon.png']},
                     'unit_amount': 100  # $1.00
                 },
                 'quantity': 1
             }],
-            success_url='https://invoice-api-3.onrender.com/success?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url='https://invoice-api-3.onrender.com/cancel'
+            success_url='https://invoice-api-ztqg.onrender.com/success?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url='https://invoice-api-ztqg.onrender.com/cancel'
         )
         return jsonify({'checkout_url': session.url})
     except Exception as e:
