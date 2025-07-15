@@ -215,27 +215,11 @@ def cancel():
 # ------------------------
 @app.route('/docs')
 def docs():
-    return """
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>Invoice API Docs</title>
-      <link rel="icon" href="/static/favicon.png" type="image/png">
-      <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 2rem; background: #f9f9f9; color: #333; }
-        h1 { color: #0d6efd; }
-        code, pre { background: #eee; padding: 1rem; border-radius: 5px; display: block; white-space: pre-wrap; }
-        a { color: #0d6efd; }
-      </style>
-    </head>
-    <body>
-      <h1>📄 Invoice API Documentation</h1>
-      ...
-    </body>
-    </html>
-    """
+    return render_template("docs.html")
 
-
+@app.route('/docs')
+def docs():
+    return render_template("docs.html")
 
 @app.route('/dashboard')
 def dashboard():
