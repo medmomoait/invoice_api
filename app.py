@@ -295,8 +295,35 @@ def dashboard():
     </html>
     """
 
+import stripe
+from flask import request, jsonify
+import os
 
+@app.route('/webhook', methods=['POST'])
+def stripe_webhook():
+    payload = request.data
+    sig_header = request.headers.get('Stripe-Signature')
+    endpoint_secret = os.getenv('STRIPE_WEBHOOK_SECRET')
 
+    try:
+        event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
+    except ValueError:
+        return '⚠️ Invalid payload', 400
+    except stripe.error.SignatureVerificationError:
+        return '⚠️ Invalid signature', 400
+
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        customer_email = session.get('customer_email')
+
+        if customer_email:
+            # Generate and email the API key securely
+            api_key = generate_api_key()  # Your function
+            save_api_key(customer_email, api_key)  # Store it (e.g. in a file or database)
+            send_api_key_email(customer_email, api_key)  # Send via email
+            print(f"✅ Sent API key to {customer_email}")
+
+    return '', 200
 
 # ------------------------
 # Run the App
