@@ -15,7 +15,22 @@
   <p>This API allows you to generate downloadable PDF invoices via HTTP requests.</p>
 
   <h2>🔐 Get Your API Key</h2>
-  <p>Visit <a href="/create-checkout-session">this payment link</a> to pay $1 and receive your API key.</p>
+  <p>Visit <a href="#" onclick="startPayment()">this payment link</a>
+
+<script>
+function startPayment() {
+  fetch('/create-checkout-session', { method: 'POST' })
+    .then(res => res.json())
+    .then(data => {
+      if (data.checkout_url) {
+        window.location.href = data.checkout_url;
+      } else {
+        alert("Error: " + data.error);
+      }
+    });
+}
+</script>
+ to pay $1 and receive your API key.</p>
 
   <h2>📤 POST /generate-invoice</h2>
   <p>Send a JSON payload to create a new invoice.</p>
