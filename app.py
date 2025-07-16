@@ -192,16 +192,7 @@ def create_checkout_session():
 # ------------------------
 @app.route('/success')
 def success():
-    new_key = generate_api_key()
-    save_api_key(new_key)
-    return f"""
-    ✅ Payment successful!<br><br>
-    Your API key is:<br><br>
-    <b>{new_key}</b><br><br>
-    Save this key! You’ll need it to call <code>/generate-invoice</code>.<br>
-    Include it in your request header like this:<br>
-    <code>x-api-key: {new_key}</code>
-    """
+    return "<h1>✅ Payment successful!</h1><p>You’ll receive your API key via email shortly.</p>"
 
 # ------------------------
 # Payment Cancelled
