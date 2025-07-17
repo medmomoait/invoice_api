@@ -328,14 +328,70 @@ def cancel():
         <meta charset="UTF-8">
         <title>Payment Cancelled</title>
         <link rel="icon" href="{url_for('static', filename='favicon.png')}" type="image/png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body {{
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: #fff5f5;
+                margin: 0;
+                padding: 0;
+                color: #333;
+            }}
+            .container {{
+                max-width: 600px;
+                margin: 100px auto;
+                text-align: center;
+                padding: 2rem;
+                background: #ffffff;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            }}
+            h1 {{
+                color: #ff4d4f;
+            }}
+            p {{
+                font-size: 1.1rem;
+                color: #555;
+            }}
+            .back-link {{
+                margin-top: 2rem;
+                display: inline-block;
+                text-decoration: none;
+                background-color: #ff4d4f;
+                color: white;
+                padding: 0.75rem 1.5rem;
+                border-radius: 8px;
+                transition: background 0.3s;
+            }}
+            .back-link:hover {{
+                background-color: #e84345;
+            }}
+            .footer {{
+                text-align: center;
+                margin-top: 2rem;
+                font-size: 0.9rem;
+                color: #777;
+            }}
+            .footer a {{
+                color: #ff4d4f;
+                text-decoration: none;
+            }}
+        </style>
     </head>
     <body>
-        <h1>❌ Payment cancelled</h1>
-        <p>You can try again anytime.</p>
-        <a href="{url_for('home')}">Go Back to Home</a>
+        <div class="container">
+            <h1>❌ Payment Cancelled</h1>
+            <p>You cancelled the payment. No worries, you can try again anytime.</p>
+            <a class="back-link" href="{url_for('home')}">Back to Home</a>
+        </div>
+        <div class="footer">
+            Developed by Mohamed Ait Benamara — 
+            <a href="mailto:med.aitb01@gmail.com">med.aitb01@gmail.com</a>
+        </div>
     </body>
     </html>
     """
+
 
 
 # ------------------------
