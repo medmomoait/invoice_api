@@ -278,7 +278,7 @@ def success():
             <p>Your API key is:</p>
             <div class="api-key">{api_key}</div>
             <br>
-            <a href="{url_for('index')}">Go Back to Home</a>
+            <a href="{url_for('home')}">Go Back to Home</a>
         </body>
         </html>
         """
