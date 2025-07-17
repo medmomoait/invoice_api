@@ -234,8 +234,53 @@ def success():
         api_key = metadata.get("api_key", "Not found")
 
         return f"""
-        <h1>✅ Payment successful!</h1>
-        <p>Your API key is: <strong>{api_key}</strong></p>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Payment Successful</title>
+            <link rel="icon" href="{url_for('static', filename='favicon.png')}" type="image/png" />
+            <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                    padding: 4rem;
+                    background-color: #f4f4f4;
+                }}
+                h1 {{
+                    color: #28a745;
+                }}
+                p {{
+                    font-size: 1.2rem;
+                    color: #333;
+                }}
+                .api-key {{
+                    background: #e9ecef;
+                    padding: 0.5rem 1rem;
+                    border-radius: 5px;
+                    display: inline-block;
+                    font-family: monospace;
+                    margin-top: 1rem;
+                }}
+                a {{
+                    display: inline-block;
+                    margin-top: 2rem;
+                    text-decoration: none;
+                    background-color: #007bff;
+                    color: white;
+                    padding: 0.75rem 1.5rem;
+                    border-radius: 5px;
+                }}
+            </style>
+        </head>
+        <body>
+            <h1>✅ Payment successful!</h1>
+            <p>Your API key is:</p>
+            <div class="api-key">{api_key}</div>
+            <br>
+            <a href="{url_for('index')}">Go Back to Home</a>
+        </body>
+        </html>
         """
     except Exception as e:
         return f"❌ Error retrieving session: {str(e)}", 500
