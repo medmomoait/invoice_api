@@ -192,43 +192,24 @@ def create_checkout_session():
 # ------------------------
 @app.route('/success')
 def success():
-    session_id = request.args.get('session_id')
+    session_id = request.args.get("session_id")
 
     if not session_id:
-        return "No session ID provided", 400
+        return "❌ No session ID provided.", 400
 
     try:
         session = stripe.checkout.Session.retrieve(session_id)
-        customer_email = session.get("customer_email")
+        customer_email = session.customer_details.email
+        metadata = session.get("metadata", {})
+        api_key = metadata.get("api_key", "Not found")
 
-        if not customer_email:
-            return "No customer email found", 400
-
-        # Optional: check if API key was already generated for this session/email
-
-        api_key = generate_api_key()  # Your function to generate/store API key
-
-        # Display it directly on the success page
-        return render_template_string("""
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Payment Success</title>
-                <style>
-                    body { font-family: Arial; padding: 2rem; background: #f9f9f9; color: #333; text-align: center; }
-                    .key { background: #eee; padding: 1rem; margin-top: 1rem; border-radius: 5px; font-weight: bold; font-size: 1.2rem; }
-                </style>
-            </head>
-            <body>
-                <h1>✅ Payment Successful!</h1>
-                <p>Your API key:</p>
-                <div class="key">{{ api_key }}</div>
-            </body>
-            </html>
-        """, api_key=api_key)
-
+        return f"""
+        <h1>✅ Payment successful!</h1>
+        <p>You’ll receive your API key: <strong>{api_key}</strong></p>
+        <p>Email: {customer_email}</p>
+        """
     except Exception as e:
-        return f"Error verifying session: {str(e)}", 400
+        return f"❌ Error retrieving session: {str(e)}", 500
 
 # ------------------------
 # Payment Cancelled
