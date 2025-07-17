@@ -37,10 +37,11 @@
     Welcome to the Invoice API! This API allows you to generate professional PDF invoices with minimal input. Simply POST your invoice data and get back a downloadable PDF file.
   </p>
 
-  <h2>🔐 Get Your API Key</h2>
-  <p>
-    Visit this <a href="/pay" target="_blank">payment link</a> to pay $1 and receive your API key.
-  </p>
+<h2>🔐 Get Your API Key</h2>
+<p>
+  To start using the Invoice API, make a one-time $1 payment. Once successful, you’ll receive your API key instantly.
+</p>
+<a href="{{ url_for('pay') }}" class="btn" style="display:inline-block;background-color:#4CAF50;color:white;padding:10px 20px;text-decoration:none;border-radius:5px;">💳 Pay $1 to Get API Key</a>
 
   <h2>📥 Endpoint</h2>
   <p><code>POST /generate-invoice</code></p>
