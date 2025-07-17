@@ -2,150 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Invoice API</title>
-  <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png" />
-
+  <link rel="icon" href="/static/favicon.png" type="image/png">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 0; padding: 0;
-      background: #f8f9fa;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
       color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
-
     header {
-      background: #1a1a1a;
+      background-color: #2c3e50;
+      padding: 1rem 2rem;
       color: white;
-      padding: 2rem;
       text-align: center;
     }
-
-    header h1 {
-      color: #4da8ff;
-      margin-bottom: 0.5rem;
-    }
-
-    .powered-by {
-      font-size: 0.9rem;
-      color: #ccc;
-      margin-top: -0.5rem;
-    }
-
     main {
+      flex: 1;
       padding: 2rem;
       max-width: 800px;
       margin: auto;
     }
-
-    h2 {
-      color: #222;
+    h1 {
+      color: #34495e;
     }
-
-    .btn {
-      background-color: #0d6efd;
-      color: white;
-      padding: 1rem 2rem;
-      text-decoration: none;
-      border-radius: 8px;
+    p {
+      font-size: 1.1rem;
+    }
+    a.button {
       display: inline-block;
-      margin: 1.5rem 0;
-      font-size: 1rem;
-    }
-
-    .btn:hover {
-      background-color: #0b5ed7;
-    }
-
-    .code-block {
-      background: #e9ecef;
-      padding: 1rem;
-      border-radius: 5px;
-      font-family: monospace;
-      white-space: pre-wrap;
-      overflow-x: auto;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background: #222;
+      margin-top: 1rem;
+      background-color: #3498db;
       color: white;
-      margin-top: 4rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
     }
-
-    a {
-      color: #4da8ff;
+    a.button:hover {
+      background-color: #2980b9;
+    }
+    footer {
+      background-color: #ecf0f1;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
-
-<header>
-  <h1>📄 Invoice PDF API</h1>
-  <p class="powered-by">Powered by <strong>Mohamed Ait Benamara</strong></p>
-  <p>Create and download beautiful PDF invoices via a simple API</p>
-</header>
-
-<main>
-  <h2>💳 Get Access for Just $1</h2>
-  <p>Pay once and receive your own private API key to generate invoices instantly.</p>
-
-<a class="btn" onclick="startPayment()">Get the API Key</a>
-
-  <h2>⚙️ How It Works</h2>
-  <ol>
-    <li>Click the payment button and pay $1 via Stripe</li>
-    <li>You’ll receive an API key</li>
-    <li>Use that key to generate invoices using a POST request</li>
-  </ol>
-
-  <p>
-    📘 <a href="https://invoice-api-ztqg.onrender.com/docs" target="_blank">Read the full API documentation</a>
-  </p>
-
-  <h2>📦 Sample API Request</h2>
-  <div class="code-block">
-curl -X POST https://invoice-api-ztqg.onrender.com/generate-invoice \
--H "Content-Type: application/json" \
--H "x-api-key: YOUR_API_KEY_HERE" \
--d '{
-  "invoice_number": "INV-001",
-  "client_name": "John Doe",
-  "client_email": "john@example.com",
-  "due_date": "2025-07-31",
-  "items": [
-    { "description": "Web Design", "quantity": 1, "unit_price": 200 },
-    { "description": "Hosting", "quantity": 1, "unit_price": 50 }
-  ]
-}'
-  </div>
-
-  <p>🧾 Your PDF invoice will be generated and ready to download from the returned link.</p>
-</main>
-
-<footer>
-  &copy; 2025 Invoice API<br>
-  💬 Need help? <a href="mailto:med.aitb01@gmail.com">med.aitb01@gmail.com</a>
-</footer>
-  
-<script>
-function startPayment() {
-  fetch('/create-checkout-session', {
-    method: 'POST'
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.checkout_url) {
-      window.location.href = data.checkout_url;
-    } else {
-      alert("Payment failed: " + data.error);
-    }
-  })
-  .catch(err => alert("Error: " + err.message));
-}
-</script>
-
-  
+  <header>
+    <h1>📄 Invoice API</h1>
+  </header>
+  <main>
+    <p>
+      Welcome to the Invoice API! This service allows you to easily generate professional PDF invoices via a simple API call.
+    </p>
+    <p>
+      For more information on how to use this API, visit the documentation page below:
+    </p>
+    <a href="/docs" class="button">📘 View API Documentation</a>
+  </main>
+  <footer>
+    &copy; 2025 Invoice API. All rights reserved.
+  </footer>
 </body>
 </html>
