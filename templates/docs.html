@@ -1,73 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Invoice API Documentation</title>
-  <link rel="icon" href="/static/favicon.png" type="image/png">
+  <meta charset="UTF-8">
+  <title>Invoice API - Documentation</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 2rem;
-      background-color: #f9f9f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
       color: #333;
+    }
+
+    header {
+      background-color: #1a1a1a;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin-bottom: 0.5rem;
+      color: #00cc99;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      margin-top: 2rem;
+    }
+
+    h2 {
+      color: #1a1a1a;
+      margin-top: 2rem;
+    }
+
+    p {
       line-height: 1.6;
     }
-    h1, h2 {
-      color: #2c3e50;
+
+    pre {
+      background-color: #f0f0f0;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-family: monospace;
+      margin-top: 1rem;
+      white-space: pre-wrap;
     }
+
     code {
-      background: #eee;
-      padding: 2px 6px;
+      background-color: #eee;
+      padding: 0.2rem 0.4rem;
       border-radius: 4px;
       font-family: monospace;
     }
-    pre {
-      background: #eee;
-      padding: 1rem;
-      border-radius: 4px;
-      overflow-x: auto;
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #222;
+      color: white;
+      margin-top: 4rem;
+      font-size: 0.95rem;
+    }
+
+    a {
+      color: #0077cc;
+    }
+
+    .section {
+      border-left: 4px solid #00cc99;
+      padding-left: 1rem;
+      margin-top: 2rem;
     }
   </style>
 </head>
 <body>
-  <h1>📄 Invoice API Documentation</h1>
 
-  <p>
-    Welcome to the Invoice API! This API allows you to generate professional PDF invoices with minimal input. Simply POST your invoice data and get back a downloadable PDF file.
-  </p>
+<header>
+  <h1>📘 Invoice API Docs</h1>
+  <p>Everything you need to integrate and generate invoices easily</p>
+</header>
 
-<h2>🔐 Get Your API Key</h2>
-<p>
-  To start using the Invoice API, make a one-time $1 payment. Once successful, you’ll receive your API key instantly.
-</p>
-<a href="{{ url_for('pay') }}" class="btn" style="display:inline-block;background-color:#4CAF50;color:white;padding:10px 20px;text-decoration:none;border-radius:5px;">💳 Pay $1 to Get API Key</a>
+<main>
+  <section class="section">
+    <h2>🔐 Authentication</h2>
+    <p>After payment, you’ll receive an API key. Use it in the <code>x-api-key</code> header.</p>
+    <pre>
+-H "x-api-key: YOUR_API_KEY_HERE"
+    </pre>
+  </section>
 
-  <h2>📥 Endpoint</h2>
-  <p><code>POST /generate-invoice</code></p>
+  <section class="section">
+    <h2>📤 Endpoint: /generate-invoice</h2>
+    <p><strong>Method:</strong> POST</p>
+    <p><strong>Description:</strong> Generate a PDF invoice from JSON data.</p>
 
-  <h2>📤 Request Headers</h2>
-  <ul>
-    <li><code>Authorization: Bearer YOUR_API_KEY</code></li>
-    <li><code>Content-Type: application/json</code></li>
-  </ul>
-
-  <h2>🧾 Request Body</h2>
-  <pre>{
-  "company_name": "Tech Co.",
-  "client_name": "John Doe",
+    <h3>📨 Request Body (JSON)</h3>
+    <pre>
+{
   "invoice_number": "INV-001",
+  "client_name": "John Doe",
+  "client_email": "john@example.com",
+  "due_date": "2025-07-31",
   "items": [
-    {"description": "Website Design", "quantity": 1, "unit_price": 500},
-    {"description": "Hosting (12 months)", "quantity": 1, "unit_price": 120}
+    { "description": "Web Design", "quantity": 1, "unit_price": 200 },
+    { "description": "Hosting", "quantity": 1, "unit_price": 50 }
   ]
-}</pre>
+}
+    </pre>
 
-  <h2>📄 Response</h2>
-  <pre>{
-  "pdf_url": "https://your-domain.com/static/invoices/INV-001.pdf"
-}</pre>
+    <h3>✅ Successful Response</h3>
+    <pre>
+{
+  "pdf_url": "https://invoice-api-ztqg.onrender.com/invoices/invoice_INV-001.pdf"
+}
+    </pre>
+  </section>
 
-  <p>Need help?<a href="mailto:support@example.com">med.aitb01@gmail.com</a>.</p>
+  <section class="section">
+    <h2>❌ Error Responses</h2>
+    <pre>
+{
+  "error": "Missing required field: invoice_number"
+}
+    </pre>
+  </section>
+
+  <section class="section">
+    <h2>🧪 Test Your Key</h2>
+    <p>You can test the endpoint using <a href="https://curl.se" target="_blank">cURL</a>:</p>
+    <pre>
+curl -X POST https://invoice-api-ztqg.onrender.com/generate-invoice \
+-H "Content-Type: application/json" \
+-H "x-api-key: YOUR_API_KEY_HERE" \
+-d '{
+  "invoice_number": "INV-001",
+  "client_name": "John Doe",
+  "client_email": "john@example.com",
+  "due_date": "2025-07-31",
+  "items": [
+    { "description": "Web Design", "quantity": 1, "unit_price": 200 }
+  ]
+}'
+    </pre>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Invoice API — Developed by Mohamed Ait Benamara<br>
+  Contact: <a href="mailto:med.aitb01@gmail.com">med.aitb01@gmail.com</a>
+</footer>
+
 </body>
 </html>
