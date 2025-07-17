@@ -168,24 +168,35 @@ def get_invoice(invoice_id):
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
     try:
+        # Generate a simple API key (you can use your own logic)
+        import secrets
+        generated_api_key = secrets.token_hex(16)
+
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             mode='payment',
             line_items=[{
                 'price_data': {
                     'currency': 'usd',
-                    'product_data': {'name': 'Invoice API Access',
-                'images': ['https://invoice-api-ztqg.onrender.com/static/favicon.png']},
+                    'product_data': {
+                        'name': 'Invoice API Access',
+                        'images': ['https://invoice-api-ztqg.onrender.com/static/favicon.png']
+                    },
                     'unit_amount': 100  # $1.00
                 },
                 'quantity': 1
             }],
-            success_url = "https://invoice-api-ztqg.onrender.com/success?session_id={CHECKOUT_SESSION_ID}",
+            metadata={
+                'api_key': generated_api_key
+            },
+            success_url="https://invoice-api-ztqg.onrender.com/success?session_id={CHECKOUT_SESSION_ID}",
             cancel_url='https://invoice-api-ztqg.onrender.com/cancel'
         )
+
         return jsonify({'checkout_url': session.url})
     except Exception as e:
         return jsonify({'error': str(e)}), 400
+
 
 # ------------------------
 # Payment Success Page
@@ -199,14 +210,12 @@ def success():
 
     try:
         session = stripe.checkout.Session.retrieve(session_id)
-        customer_email = session.customer_details.email
         metadata = session.get("metadata", {})
         api_key = metadata.get("api_key", "Not found")
 
         return f"""
         <h1>✅ Payment successful!</h1>
-        <p>You’ll receive your API key: <strong>{api_key}</strong></p>
-        <p>Email: {customer_email}</p>
+        <p>Your API key is: <strong>{api_key}</strong></p>
         """
     except Exception as e:
         return f"❌ Error retrieving session: {str(e)}", 500
