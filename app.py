@@ -290,7 +290,22 @@ def success():
 # ------------------------
 @app.route('/cancel')
 def cancel():
-    return "❌ Payment was cancelled."
+    return f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Payment Cancelled</title>
+        <link rel="icon" href="{url_for('static', filename='favicon.png')}" type="image/png" />
+    </head>
+    <body>
+        <h1>❌ Payment cancelled</h1>
+        <p>You can try again anytime.</p>
+        <a href="{url_for('home')}">Go Back to Home</a>
+    </body>
+    </html>
+    """
+
 
 # ------------------------
 # API Documentation Route
