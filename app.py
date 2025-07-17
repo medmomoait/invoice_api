@@ -240,45 +240,76 @@ def success():
             <meta charset="UTF-8">
             <title>Payment Successful</title>
             <link rel="icon" href="{url_for('static', filename='favicon.png')}" type="image/png" />
+            <meta name="viewport" content="width=device-width, initial-scale=1">
             <style>
                 body {{
-                    font-family: Arial, sans-serif;
-                    text-align: center;
-                    padding: 4rem;
-                    background-color: #f4f4f4;
-                }}
-                h1 {{
-                    color: #28a745;
-                }}
-                p {{
-                    font-size: 1.2rem;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    background: #f0fdf7;
+                    margin: 0;
+                    padding: 0;
                     color: #333;
                 }}
+                .container {{
+                    max-width: 600px;
+                    margin: 100px auto;
+                    text-align: center;
+                    padding: 2rem;
+                    background: #fff;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                }}
+                h1 {{
+                    color: #00cc99;
+                }}
+                p {{
+                    font-size: 1.1rem;
+                }}
                 .api-key {{
-                    background: #e9ecef;
-                    padding: 0.5rem 1rem;
-                    border-radius: 5px;
-                    display: inline-block;
+                    background-color: #e8fff7;
+                    padding: 1rem;
+                    border: 1px dashed #00cc99;
+                    border-radius: 8px;
                     font-family: monospace;
+                    font-size: 1rem;
+                    word-break: break-all;
                     margin-top: 1rem;
                 }}
-                a {{
-                    display: inline-block;
+                .back-link {{
                     margin-top: 2rem;
+                    display: inline-block;
                     text-decoration: none;
-                    background-color: #007bff;
+                    background-color: #00cc99;
                     color: white;
                     padding: 0.75rem 1.5rem;
-                    border-radius: 5px;
+                    border-radius: 8px;
+                    transition: background 0.3s;
+                }}
+                .back-link:hover {{
+                    background-color: #00b289;
+                }}
+                .footer {{
+                    text-align: center;
+                    margin-top: 2rem;
+                    font-size: 0.9rem;
+                    color: #777;
+                }}
+                .footer a {{
+                    color: #00cc99;
+                    text-decoration: none;
                 }}
             </style>
         </head>
         <body>
-            <h1>✅ Payment successful!</h1>
-            <p>Your API key is:</p>
-            <div class="api-key">{api_key}</div>
-            <br>
-            <a href="{url_for('home')}">Go Back to Home</a>
+            <div class="container">
+                <h1>✅ Payment Successful!</h1>
+                <p>Thank you for your purchase. Your API key is:</p>
+                <div class="api-key">{api_key}</div>
+                <a class="back-link" href="{url_for('home')}">Go Back to Home</a>
+            </div>
+            <div class="footer">
+                Developed by Mohamed Ait Benamara — 
+                <a href="mailto:med.aitb01@gmail.com">med.aitb01@gmail.com</a>
+            </div>
         </body>
         </html>
         """
