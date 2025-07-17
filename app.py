@@ -1,7 +1,7 @@
 import os
 import uuid
 import json
-from flask import Flask, request, send_file, jsonify
+from flask import Flask, request, send_file, jsonify, render_template, redirect, url_for
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from dotenv import load_dotenv
@@ -197,7 +197,27 @@ def create_checkout_session():
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
-
+@app.route('/pay')
+def pay():
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        mode='payment',
+        line_items=[{
+            'price_data': {
+                'currency': 'usd',
+                'product_data': {
+                    'name': 'Invoice API Access',
+                    'images': ['https://invoice-api-ztqg.onrender.com/static/favicon.png']
+                },
+                'unit_amount': 100  # $1.00
+            },
+            'quantity': 1
+        }],
+        success_url='https://invoice-api-ztqg.onrender.com/success?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url='https://invoice-api-ztqg.onrender.com/cancel'
+    )
+    return redirect(session.url, code=303)
+    
 # ------------------------
 # Payment Success Page
 # ------------------------
