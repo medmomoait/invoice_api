@@ -1,67 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Invoice API Docs</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoice API Documentation</title>
   <link rel="icon" href="/static/favicon.png" type="image/png">
   <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 2rem; background: #f9f9f9; color: #333; }
-    h1 { color: #0d6efd; }
-    code, pre { background: #eee; padding: 1rem; border-radius: 5px; display: block; white-space: pre-wrap; }
-    a { color: #0d6efd; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    pre {
+      background: #eee;
+      padding: 1rem;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
   </style>
 </head>
 <body>
   <h1>📄 Invoice API Documentation</h1>
-  <p>This API allows you to generate downloadable PDF invoices via HTTP requests.</p>
+
+  <p>
+    Welcome to the Invoice API! This API allows you to generate professional PDF invoices with minimal input. Simply POST your invoice data and get back a downloadable PDF file.
+  </p>
 
   <h2>🔐 Get Your API Key</h2>
-  <p>Visit <a href="#" onclick="startPayment()">this payment link</a>
+  <p>
+    Visit this <a href="/pay" target="_blank">payment link</a> to pay $1 and receive your API key.
+  </p>
 
-<script>
-function startPayment() {
-  fetch('/create-checkout-session', { method: 'POST' })
-    .then(res => res.json())
-    .then(data => {
-      if (data.checkout_url) {
-        window.location.href = data.checkout_url;
-      } else {
-        alert("Error: " + data.error);
-      }
-    });
-}
-</script>
- to pay $1 and receive your API key.</p>
+  <h2>📥 Endpoint</h2>
+  <p><code>POST /generate-invoice</code></p>
 
-  <h2>📤 POST /generate-invoice</h2>
-  <p>Send a JSON payload to create a new invoice.</p>
-  <pre>
-POST https://invoice-api-ztqg.onrender.com/generate-invoice
-Headers:
-  Content-Type: application/json
-  x-api-key: YOUR_API_KEY
+  <h2>📤 Request Headers</h2>
+  <ul>
+    <li><code>Authorization: Bearer YOUR_API_KEY</code></li>
+    <li><code>Content-Type: application/json</code></li>
+  </ul>
 
-Body:
-{
-  "invoice_number": "INV-001",
+  <h2>🧾 Request Body</h2>
+  <pre>{
+  "company_name": "Tech Co.",
   "client_name": "John Doe",
-  "client_email": "john@example.com",
-  "due_date": "2025-07-31",
+  "invoice_number": "INV-001",
   "items": [
-    { "description": "Design", "quantity": 1, "unit_price": 100 },
-    { "description": "Hosting", "quantity": 1, "unit_price": 50 }
+    {"description": "Website Design", "quantity": 1, "unit_price": 500},
+    {"description": "Hosting (12 months)", "quantity": 1, "unit_price": 120}
   ]
-}
-  </pre>
+}</pre>
 
-  <h2>📥 GET /invoice/&lt;invoice_id&gt;</h2>
-  <p>Download a PDF invoice after generation:</p>
-  <pre>
-GET https://invoice-api-ztqg.onrender.com/invoice/&lt;invoice_id&gt;
-  </pre>
+  <h2>📄 Response</h2>
+  <pre>{
+  "pdf_url": "https://your-domain.com/static/invoices/INV-001.pdf"
+}</pre>
 
-  <hr>
-  <footer>
-    &copy; 2025 Invoice API — Powered by Mohamed Ait Benamara
-  </footer>
+  <p>Need help? Contact support at <a href="mailto:support@example.com">support@example.com</a>.</p>
 </body>
 </html>
